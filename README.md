@@ -37,6 +37,9 @@ A simple casino game simulation project built with Next.js and React.
 1. Clone the repository
 2. Install dependencies: pnpm install
 3. Start the development server: pnpm dev
+
+NB: You need only one single env to run the app, which is the `NEXT_PUBLIC_BASE_URL`
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+You can also check the [live demo](https://igaming.obafemi.dev).
