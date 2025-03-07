@@ -16,7 +16,7 @@ export const useGetUserInformation = () => {
       lost: number
       total: number
     }
-  }>(ENDPOINTS.USER.ME, ['GET:INFORMATION'])
+  }>(ENDPOINTS.USER.ME)
 
   return {
     data: UserInformationQuery.data,
