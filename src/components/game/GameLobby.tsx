@@ -69,6 +69,13 @@ export const GameLobby = () => {
     },
   })
 
+  const canShowOverlay = useMemo(() => {
+    if (ActiveLobby.data?.lobby?.status === 'EXPIRED') {
+      return true
+    }
+    return draw.isDrawing
+  }, [ActiveLobby.data?.lobby?.status, draw.isDrawing])
+
   const JoinGameLobby = useJoinLobby({
     actions: {
       onJoin: () => {
@@ -137,7 +144,7 @@ export const GameLobby = () => {
       </div>
 
       <Announcer />
-      {draw.isDrawing && (
+      {canShowOverlay && (
         <DrawOverlay
           luckyNumber={draw.luckyNumber}
           selectedNumber={draw.selectedNumber}
