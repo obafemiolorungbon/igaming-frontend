@@ -32,6 +32,7 @@ export const useInvalidateLobbyQueries = () => {
   const invalidate = useCallback(() => {
     queryClient.invalidateQueries({ queryKey: [ENDPOINTS.LOBBY.GET] })
     queryClient.invalidateQueries({ queryKey: [ENDPOINTS.USER.ME] })
+    queryClient.invalidateQueries({ queryKey: [ENDPOINTS.USER.STATS] })
   }, [])
 
   return invalidate
