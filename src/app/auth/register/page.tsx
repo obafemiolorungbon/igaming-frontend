@@ -14,6 +14,8 @@ import { useHandleFormErrors } from '@/hooks/useError'
 // types
 import { AuthSuccess, FormErrors } from '@/types'
 import { ENDPOINTS } from '@/config/endpoints'
+import { Loading } from '@/components/common/Loading'
+import { AuthLink } from '@/components/auth/AuthLink/AuthLink'
 
 const RegisterPage = () => {
   // auth helper
@@ -86,52 +88,55 @@ const RegisterPage = () => {
 
   return (
     <div className={styles.container}>
-      <form className={styles.form}>
-        <div className={styles.imageContainer} />
-        <h2>Welcome</h2>
-        <div className={styles.inputGroup}>
-          <label>Username</label>
-          <input
-            type="name"
-            value={FormState.state.username}
-            onChange={(e) =>
-              FormState.field.mutate({
-                name: 'username',
-                value: e.target.value,
-              })
-            }
-            required
-          />
-          <span>{errors.username && errors.username}</span>
-        </div>
-        <div className={styles.inputGroup}>
-          <label>Password</label>
-          <input
-            type="password"
-            value={FormState.state.password}
-            onChange={(e) =>
-              FormState.field.mutate({
-                name: 'password',
-                value: e.target.value,
-              })
-            }
-            required
-          />
-          <span>{errors.password && errors.password}</span>
-        </div>
-        <button
-          onClick={(e) => {
-            e.preventDefault()
-            handleSubmit()
-          }}
-          className={styles.button}
-          disabled={RegisterMutation.isPending}
-        >
-          Get Started
-        </button>
+      <Loading isLoading={RegisterMutation.isPending}>
+        <form className={styles.form}>
+          <h2 className={styles.logo}>Igaming</h2>
+          <h2>Welcome</h2>
+          <div className={styles.inputGroup}>
+            <label>Username</label>
+            <input
+              type="name"
+              value={FormState.state.username}
+              onChange={(e) =>
+                FormState.field.mutate({
+                  name: 'username',
+                  value: e.target.value,
+                })
+              }
+              required
+            />
+            <span>{errors.username && errors.username}</span>
+          </div>
+          <div className={styles.inputGroup}>
+            <label>Password</label>
+            <input
+              type="password"
+              value={FormState.state.password}
+              onChange={(e) =>
+                FormState.field.mutate({
+                  name: 'password',
+                  value: e.target.value,
+                })
+              }
+              required
+            />
+            <span>{errors.password && errors.password}</span>
+          </div>
+          <button
+            onClick={(e) => {
+              e.preventDefault()
+              handleSubmit()
+            }}
+            className={styles.button}
+            disabled={RegisterMutation.isPending}
+          >
+            Get Started
+          </button>
+          <AuthLink type="register" />
 
-        <span className={styles.apiErrors}>{RegisterMutation.error && errors.server}</span>
-      </form>
+          <span className={styles.apiErrors}>{RegisterMutation.error && errors.server}</span>
+        </form>
+      </Loading>
     </div>
   )
 }

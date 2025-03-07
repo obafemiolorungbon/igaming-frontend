@@ -12,6 +12,8 @@ import { AuthSuccess, FormErrors } from '@/types'
 import { useApiMutation } from '@/hooks/useApi'
 import { useHandleAuth } from '@/hooks/useAuth'
 import { ENDPOINTS } from '@/config/endpoints'
+import { AuthLink } from '@/components/auth/AuthLink/AuthLink'
+import { Loading } from '@/components/common/Loading'
 
 const LoginPage = () => {
   const { handleAuth } = useHandleAuth()
@@ -78,48 +80,51 @@ const LoginPage = () => {
 
   return (
     <div className={styles.container}>
-      <form onSubmit={handleSubmit} className={styles.form}>
-        <div className={styles.imageContainer} />
-        <h2>Login</h2>
-        <div className={styles.inputGroup}>
-          <label>Username</label>
-          <input
-            type="name"
-            value={Form.state.username}
-            onChange={(e) =>
-              Form.field.mutate({
-                name: 'username',
-                value: e.target.value,
-              })
-            }
-            required
-          />
-          <span>{errors.username && errors.username}</span>
-        </div>
-        <div className={styles.inputGroup}>
-          <label>Password</label>
-          <input
-            type="password"
-            value={Form.state.password}
-            onChange={(e) => {
-              Form.field.mutate({
-                name: 'password',
-                value: e.target.value,
-              })
+      <Loading isLoading={LoginMutation.isPending}>
+        <form onSubmit={handleSubmit} className={styles.form}>
+          <h2 className={styles.logo}>Igaming</h2>
+          <h2>Login</h2>
+          <div className={styles.inputGroup}>
+            <label>Username</label>
+            <input
+              type="name"
+              value={Form.state.username}
+              onChange={(e) =>
+                Form.field.mutate({
+                  name: 'username',
+                  value: e.target.value,
+                })
+              }
+              required
+            />
+            <span>{errors.username && errors.username}</span>
+          </div>
+          <div className={styles.inputGroup}>
+            <label>Password</label>
+            <input
+              type="password"
+              value={Form.state.password}
+              onChange={(e) => {
+                Form.field.mutate({
+                  name: 'password',
+                  value: e.target.value,
+                })
+              }}
+              required
+            />
+          </div>
+          <button
+            onClick={(e) => {
+              e.preventDefault()
+              handleSubmit()
             }}
-            required
-          />
-        </div>
-        <button
-          onClick={(e) => {
-            e.preventDefault()
-            handleSubmit()
-          }}
-          className={styles.button}
-        >
-          Continue Playing
-        </button>
-      </form>
+            className={styles.button}
+          >
+            Continue Playing
+          </button>
+          <AuthLink type="login" />
+        </form>
+      </Loading>
     </div>
   )
 }

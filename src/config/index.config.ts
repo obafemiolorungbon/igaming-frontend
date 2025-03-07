@@ -1,3 +1,3 @@
 export const CONFIG = {
-    API_BASE_URL:'http://localhost:3001/api/v1',
+  API_BASE_URL: process.env.NEXT_PUBLIC_BASE_URL,
 }

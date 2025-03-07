@@ -11,6 +11,7 @@ import { JoinButton } from '@/components/game/JoinButton'
 import { Announcer } from '@/components/game/Announcer/Announcer'
 import { NumberSelector } from '@/components/game/NumberSelector/NumberSelector'
 import { DrawOverlay } from '@/components/game/DrawOverlay/DrawOverlay'
+import { ExitButton } from '@/components/game/ExitButton/ExitButton'
 
 // hooks
 import { SSE_EVENTS, useSSEHook } from '@/providers/SSE'
@@ -88,6 +89,7 @@ export const GameLobby = () => {
 
   return (
     <div className={styles.container}>
+      <ExitButton />
       <UserStats />
 
       <div className={styles.content}>

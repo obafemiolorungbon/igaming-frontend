@@ -11,11 +11,32 @@ yarn dev
 # or
 pnpm dev
 # or
-bun dev
+# Igaming
+
+A simple casino game simulation project built with Next.js and React.
+
+## Features
+
+- User authentication (login/register)
+- Modern UI with dark mode support
+- Custom form handling and error management
+- Responsive design
+- Built with TypeScript for type safety
+
+## Tech Stack
+
+- Next.js 14 (App Router)
+- React
+- TypeScript
+- TailwindCSS
+- Geist Font
+- Custom hooks for form, auth and API management
+
+## Getting Started
+
+1. Clone the repository
+2. Install dependencies: pnpm install
+3. Start the development server: pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-## About the project
-
-This is a simple gaming project that utilized simple user authentication and UI to simulate a simple casino game.

@@ -3,17 +3,18 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #f4f4f4;
+  background: rgb(var(--background-rgb));
 }
 
 .form {
-  background: white;
+  background: rgb(var(--background-rgb));
   padding: 2rem;
   border-radius: 8px;
+  border: 1px solid #007bff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 300px;
   text-align: center;
-  color: #000;
+  color: rgb(var(--foreground-rgb));
 }
 
 .imageContainer {
@@ -27,18 +28,18 @@
 
 .form h2 {
   margin-bottom: 1.5rem;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
 }
 
 .inputGroup {
   margin-bottom: 1.5rem;
   text-align: left;
-  color:#000;
+  color: rgb(var(--foreground-rgb));
 }
 
 .inputGroup span {
-    font-size: 0.75rem;
-    color: #ed4646;
+  font-size: 0.75rem;
+  color: #848484;
 }
 
 .inputGroup label {
@@ -59,7 +60,7 @@
   width: 100%;
   padding: 10px;
   background-color: #007bff;
-  color: white;
+  color: rgb(var(--foreground-rgb));
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -69,9 +70,17 @@
   background-color: #0056b3;
 }
 
-.apiErrors {
-  color: #ed4646;
-  margin-top: 3rem;
-  display: block;
-  font-size: 0.85rem;
+.logo {
+  font-family: var(--font-geist-sans);
+  font-size: 2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 0 0 10px rgba(0, 123, 255, 0.5), 0 0 20px rgba(0, 123, 255, 0.3),
+    0 0 30px rgba(0, 123, 255, 0.2);
+  background: linear-gradient(45deg, #007bff, #00ff88);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: glow 2s ease-in-out infinite alternate;
 }
