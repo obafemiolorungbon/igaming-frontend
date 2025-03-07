@@ -1,52 +1,80 @@
 .container {
-  padding: 1rem;
-  background: rgba(var(--foreground-rgb), 0.05);
-  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem;
   width: 100%;
+  max-width: 1200px;
   margin: 0 auto;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0.75rem;
-  padding: 0.5rem;
 }
 
 .selectNumber {
   font-family: var(--font-geist-mono);
-  font-size: 1.25rem;
-  font-weight: 600;
-  text-align: center;
+  font-size: 1.125rem;
   color: rgb(var(--foreground-rgb));
-  margin-bottom: 0.5rem;
+  text-align: center;
+  margin: 0;
+  font-weight: 500;
+}
+
+.numbersContainer {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.numbersContainer::-webkit-scrollbar {
+  display: none;
 }
 
 .numberButton {
   position: relative;
-  width: 100%;
-  height: 4rem;
-  border: 2px solid rgba(var(--foreground-rgb), 0.1);
-  border-radius: 12px;
-  background: rgba(var(--foreground-rgb), 0.03);
+  width: 5rem;
+  height: 5rem;
+  flex: 0 0 5rem;
+  border: none;
+  border-radius: 50%;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 50%);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), inset 0 -4px 4px rgba(0, 0, 0, 0.2),
+    inset 0 4px 4px rgba(255, 255, 255, 0.2);
+}
+
+/* Alternating colors for the balls */
+.numberButton:nth-child(3n + 1) {
+  background-color: #e63946; /* Red */
+}
+
+.numberButton:nth-child(3n + 2) {
+  background-color: #457b9d; /* Blue */
+}
+
+.numberButton:nth-child(3n) {
+  background-color: #e9c46a; /* Gold */
 }
 
 .number {
-  font-family: var(--font-geist-mono);
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: rgb(var(--foreground-rgb));
+  font-family: var(--font-geist-sans);
+  font-size: 2rem;
+  font-weight: 700;
+  color: white;
   position: relative;
   z-index: 2;
-  transition: all 0.2s ease-in-out;
-  display: block;
-  text-align: center;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .glow {
@@ -58,8 +86,9 @@
 }
 
 .numberButton:hover:not(.disabled) {
-  border-color: #3b82f6;
-  transform: translateY(-2px);
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4), inset 0 -4px 4px rgba(0, 0, 0, 0.2),
+    inset 0 4px 4px rgba(255, 255, 255, 0.2);
 }
 
 .numberButton:hover:not(.disabled) .glow {
@@ -67,8 +96,9 @@
 }
 
 .numberButton.selected {
-  border-color: #3b82f6;
-  background: rgba(59, 130, 246, 0.1);
+  transform: scale(1.1);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4), inset 0 -4px 4px rgba(0, 0, 0, 0.2),
+    inset 0 4px 4px rgba(255, 255, 255, 0.3);
 }
 
 .numberButton.selected .number {
@@ -86,15 +116,57 @@
 .numberButton.disabled {
   cursor: not-allowed;
   opacity: 0.5;
+  transform: none;
+  box-shadow: none;
 }
 
+/* Tablet */
+@media (max-width: 1024px) {
+  .numberButton {
+    width: 4rem;
+    height: 4rem;
+    flex: 0 0 4rem;
+  }
+
+  .numbersContainer {
+    gap: 1.25rem;
+  }
+}
+
+/* Mobile */
 @media (max-width: 640px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .numbersContainer {
+    gap: 1rem;
+    padding: 0.5rem;
+    justify-content: flex-start;
+  }
+
   .numberButton {
     width: 3rem;
     height: 3rem;
+    flex: 0 0 3rem;
   }
 
   .number {
     font-size: 1.25rem;
+  }
+
+  .selectNumber {
+    font-size: 0.875rem;
+  }
+}
+
+.grid {
+  display: flex;
+  gap: 0.75rem;
+
+  @media (max-width: 640px) {
+    max-width: 60%;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 }

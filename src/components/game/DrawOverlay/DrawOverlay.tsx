@@ -7,12 +7,14 @@ interface DrawOverlayProps {
   onDrawComplete?: (number: number) => void
   luckyNumber: number
   selectedNumber?: number
+  status: string
 }
 
 const DrawOverlayComponent = ({
   onDrawComplete,
   luckyNumber,
   selectedNumber,
+  status,
 }: DrawOverlayProps) => {
   const [currentNumber, setCurrentNumber] = useState<number>(1)
   const [drawComplete, setDrawComplete] = useState(false)
@@ -67,6 +69,19 @@ const DrawOverlayComponent = ({
     }
     return 'Better luck next time!'
   }, [selectedNumber, luckyNumber])
+
+  /**
+   * If the status is not active, then you need to render the overlay and with the message that the next round starts soon.
+   */
+  if (status !== 'ACTIVE') {
+    return (
+      <div className={styles.overlay}>
+        <div className={styles.content}>
+          <h2 className={styles.title}>Next Round is Starting Soon...</h2>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className={styles.overlay}>

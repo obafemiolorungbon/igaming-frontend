@@ -17,8 +17,8 @@ export const UserStats = () => {
   }, [router])
 
   return (
-    <div className={styles.stats}>
-      <Loading isLoading={isLoading}>
+    <Loading isLoading={isLoading}>
+      <div className={styles.stats}>
         <span className={styles.username}>{data?.username}</span>
         <div className={styles.record}>
           <span className={styles.wins}>Wins: {data?.games?.won}</span>
@@ -28,7 +28,7 @@ export const UserStats = () => {
           <span className={styles.trophyIcon}>🏆</span>
           Leaderboard
         </button>
-      </Loading>
-    </div>
+      </div>
+    </Loading>
   )
 }

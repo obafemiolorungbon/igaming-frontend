@@ -1,6 +1,6 @@
 'use client'
 
-import { memo, useCallback, useState } from 'react'
+import { memo, useState } from 'react'
 import styles from './NumberSelector.module.css'
 import { useSelectRandomNumber } from '@/hooks/useGame'
 import { Loading } from '@/components/common/Loading'
@@ -29,36 +29,38 @@ const NumberSelectorComponent = ({ selectedNumber, disabled, actions }: NumberSe
   })
 
   return (
-    <div className={styles.container}>
-      <Loading isLoading={isLoading}>
+    <Loading isLoading={isLoading}>
+      <div className={styles.container}>
         <p className={styles.selectNumber}>
           {selectedNumber && selectedNumber > 0
             ? `You selected ${selectedNumber} as your LUCKY number`
             : 'Please Select your LUCKY number'}
         </p>
-      </Loading>
-      <div className={styles.grid}>
-        {Array.from({ length: 10 }, (_, i) => i + 1).map((number) => (
-          <button
-            key={number}
-            className={`${styles.numberButton} ${
-              selectedNumber === number ? styles.selected : ''
-            } ${hoveredNumber === number ? styles.hovered : ''} ${disabled ? styles.disabled : ''}`}
-            onClick={() => {
-              SelectLuckyNumber({
-                luckyNumber: number,
-              })
-            }}
-            onMouseEnter={() => setHoveredNumber(number)}
-            onMouseLeave={() => setHoveredNumber(null)}
-            disabled={disabled}
-          >
-            <span className={styles.number}>{number}</span>
-            <div className={styles.glow} />
-          </button>
-        ))}
+        <div className={styles.grid}>
+          {Array.from({ length: 10 }, (_, i) => i + 1).map((number) => (
+            <button
+              key={number}
+              className={`${styles.numberButton} ${
+                selectedNumber === number ? styles.selected : ''
+              } ${hoveredNumber === number ? styles.hovered : ''} ${
+                disabled ? styles.disabled : ''
+              }`}
+              onClick={() => {
+                SelectLuckyNumber({
+                  luckyNumber: number,
+                })
+              }}
+              onMouseEnter={() => setHoveredNumber(number)}
+              onMouseLeave={() => setHoveredNumber(null)}
+              disabled={disabled}
+            >
+              <span className={styles.number}>{number}</span>
+              <div className={styles.glow} />
+            </button>
+          ))}
+        </div>
       </div>
-    </div>
+    </Loading>
   )
 }
 

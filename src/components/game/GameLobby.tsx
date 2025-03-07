@@ -89,8 +89,10 @@ export const GameLobby = () => {
 
   return (
     <div className={styles.container}>
-      <ExitButton />
-      <UserStats />
+      <div className={styles.header}>
+        <ExitButton />
+        <UserStats />
+      </div>
 
       <div className={styles.content}>
         <CountdownTimer />
@@ -129,7 +131,7 @@ export const GameLobby = () => {
             <span className={styles.currentPlayers}>
               {ActiveLobby?.data?.lobby?.playerCount || 0}
             </span>
-            <span className={styles.playersLabel}>Players Joined</span>
+            <span className={styles.playersLabel}>Player(s) Joined</span>
           </div>
         </div>
       </div>
@@ -140,6 +142,7 @@ export const GameLobby = () => {
           luckyNumber={draw.luckyNumber}
           selectedNumber={draw.selectedNumber}
           onDrawComplete={handleDrawComplete}
+          status={ActiveLobby.data?.lobby?.status}
         />
       )}
     </div>

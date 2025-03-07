@@ -1,0 +1,53 @@
+.backButton {
+  position: fixed;
+  top: 2rem;
+  left: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  background: rgba(var(--foreground-rgb), 0.05);
+  border: 2px solid #3b82f6;
+  border-radius: 9999px;
+  color: rgb(var(--foreground-rgb));
+  font-family: var(--font-geist-mono);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  z-index: 10;
+}
+
+.backButton:hover {
+  background: rgba(59, 130, 246, 0.1);
+  transform: translateX(-2px);
+}
+
+.icon {
+  font-size: 1rem;
+  transition: transform 0.2s ease-in-out;
+}
+
+.backButton:hover .icon {
+  transform: translateX(-2px);
+}
+
+.text {
+  color: #3b82f6;
+}
+
+@media (max-width: 640px) {
+  .backButton {
+    top: 1rem;
+    left: 1rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .text {
+    display: none;
+  }
+
+  .backButton:hover {
+    transform: translateX(-1px);
+  }
+}
