@@ -1,0 +1,128 @@
+.toast {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 300px;
+  max-width: 400px;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  animation: slideIn 0.2s ease-out;
+  z-index: 1000;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.message {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+  font-size: 0.875rem;
+}
+
+.closeButton:hover {
+  opacity: 1;
+}
+
+/* Positions */
+.top-right {
+  top: 1rem;
+  right: 1rem;
+}
+
+.top-left {
+  top: 1rem;
+  left: 1rem;
+}
+
+.bottom-right {
+  bottom: 1rem;
+  right: 1rem;
+}
+
+.bottom-left {
+  bottom: 1rem;
+  left: 1rem;
+}
+
+/* Status Variants */
+.success {
+  background: #22c55e;
+  color: white;
+}
+
+.success .icon {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.error {
+  background: #ef4444;
+  color: white;
+}
+
+.error .icon {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.warning {
+  background: #f59e0b;
+  color: white;
+}
+
+.warning .icon {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.info {
+  background: #3b82f6;
+  color: white;
+}
+
+.info .icon {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Animations */
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 640px) {
+  .toast {
+    min-width: auto;
+    width: calc(100% - 2rem);
+    margin: 0 1rem;
+  }
+}

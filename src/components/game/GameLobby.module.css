@@ -1,0 +1,222 @@
+.container {
+  min-height: 100vh;
+  padding: 2rem;
+  background: rgb(var(--background-rgb));
+  position: relative;
+}
+
+.stats {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+}
+
+.username {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: rgb(var(--foreground-rgb));
+  font-style: italic;
+  text-transform: capitalize;
+}
+
+.record {
+  display: flex;
+  gap: 1rem;
+  font-family: var(--font-geist-mono);
+}
+
+.wins {
+  color: #22c55e;
+}
+
+.losses {
+  color: #ef4444;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 4rem);
+  gap: 3rem;
+}
+
+.lobbyInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  max-width: 300px;
+}
+
+.playerCount {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-family: var(--font-geist-mono);
+}
+
+.currentPlayers {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #3b82f6;
+}
+
+.playersSeparator {
+  font-size: 2rem;
+  color: rgba(var(--foreground-rgb), 0.3);
+}
+
+.maxPlayers {
+  font-size: 2rem;
+  color: rgba(var(--foreground-rgb), 0.5);
+}
+
+.playersLabel {
+  margin-left: 0.5rem;
+  font-size: 1rem;
+  color: rgba(var(--foreground-rgb), 0.7);
+}
+
+.progressBar {
+  width: 100%;
+  height: 8px;
+  background: rgba(var(--foreground-rgb), 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(to right, #3b82f6, #22c55e);
+  border-radius: 4px;
+  transition: width 0.3s ease-in-out;
+}
+
+.timer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.timerText {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: rgba(var(--foreground-rgb), 0.7);
+  font-family: var(--font-geist-mono);
+}
+
+.time {
+  font-size: 3rem;
+  font-weight: 700;
+  font-family: var(--font-geist-mono);
+  color: rgb(var(--foreground-rgb));
+}
+
+.joinButton {
+  padding: 1rem 4rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: rgb(var(--background-rgb));
+  background: rgb(var(--foreground-rgb));
+  border: 2px solid #3b82f6;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.joinButton:hover:not(:disabled) {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(var(--foreground-rgb), 0.2);
+}
+
+.joinButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.gameControls {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.leaderboardButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: rgba(var(--foreground-rgb), 0.05);
+  border: 2px solid #3b82f6;
+  border-radius: 9999px;
+  color: rgb(var(--foreground-rgb));
+  font-family: var(--font-geist-mono);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  margin-top: 0.5rem;
+}
+
+.leaderboardButton:hover {
+  background: rgba(var(--foreground-rgb), 0.1);
+  transform: translateY(-1px);
+}
+
+.trophyIcon {
+  font-size: 1rem;
+  animation: trophyBounce 1s ease-in-out infinite;
+}
+
+@keyframes trophyBounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .stats {
+    top: 1rem;
+    right: 1rem;
+  }
+
+  .currentPlayers {
+    font-size: 2rem;
+  }
+
+  .maxPlayers,
+  .playersSeparator {
+    font-size: 1.5rem;
+  }
+
+  .playersLabel {
+    font-size: 0.875rem;
+  }
+
+  .time {
+    font-size: 2rem;
+  }
+
+  .joinButton {
+    padding: 0.75rem 3rem;
+    font-size: 1.25rem;
+  }
+}
