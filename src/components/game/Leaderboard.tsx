@@ -9,7 +9,7 @@ export const Leaderboard = () => {
 
   return (
     <div className={styles.container}>
-      <Loading loadingText="Loading Leaderboard..." isLoading={LeaderboardStats.isLoading}>
+      <Loading isLoading={LeaderboardStats.isLoading}>
         <h1 className={styles.title}>Top Players</h1>
 
         <div className={styles.tableContainer}>

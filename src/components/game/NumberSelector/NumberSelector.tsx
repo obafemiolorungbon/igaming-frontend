@@ -30,7 +30,7 @@ const NumberSelectorComponent = ({ selectedNumber, disabled, actions }: NumberSe
 
   return (
     <div className={styles.container}>
-      <Loading isLoading={isLoading} loadingText="Selecting Number">
+      <Loading isLoading={isLoading}>
         <p className={styles.selectNumber}>
           {selectedNumber && selectedNumber > 0
             ? `You selected ${selectedNumber} as your LUCKY number`
