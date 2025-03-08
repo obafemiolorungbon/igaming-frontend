@@ -3,28 +3,21 @@
 import React, { useCallback } from 'react'
 import styles from './login.module.css'
 import { useFormState } from '@/hooks/useForm'
-import { useHandleFormErrors } from '@/hooks/useError'
-
 import _ from 'lodash'
 
 // types
-import { AuthSuccess, FormErrors } from '@/types'
+import { AuthSuccess } from '@/types'
 import { useApiMutation } from '@/hooks/useApi'
 import { useHandleAuth } from '@/hooks/useAuth'
 import { ENDPOINTS } from '@/config/endpoints'
 import { AuthLink } from '@/components/auth/AuthLink/AuthLink'
 import { Loading } from '@/components/common/Loading'
+import { useToast } from '@/components/common/Toast/ToastContext'
 
 const LoginPage = () => {
   const { handleAuth } = useHandleAuth()
 
-  const { handleError, errors } = useHandleFormErrors<FormErrors>({
-    initialValues: {
-      username: '',
-      password: '',
-      server: '',
-    },
-  })
+  const { showToast } = useToast()
 
   const Form = useFormState({
     initial: {
@@ -36,6 +29,9 @@ const LoginPage = () => {
   const LoginMutation = useApiMutation<AuthSuccess>(ENDPOINTS.AUTH.LOGIN, {
     onSuccess: (data) => {
       // TODO: handle success by moving them into the app
+      showToast('Welcome back to Igaming...', {
+        status: 'success',
+      })
       handleAuth({
         token: data.accessToken,
         action: 'LOGIN',
@@ -43,33 +39,24 @@ const LoginPage = () => {
     },
     onError: (error) => {
       // TODO: improve error handling by using a toast or a modal
-      handleError({
-        key: 'server',
-        value: _.get(error, 'response.data.message') || 'An error occured',
+      showToast(_.get(error, 'response.data.message') || 'An error occured', {
+        status: 'error',
       })
     },
   })
 
   const handleSubmit = useCallback(async () => {
-    // reset existing erros
-    handleError({
-      key: 'server',
-      value: '',
-      reset: true,
-    })
     // TODO: Improve this by adding a validation package like zod or yup
     if (!Form.state.username) {
-      handleError({
-        key: 'username',
-        value: 'Username is required',
+      showToast('Username is required', {
+        status: 'error',
       })
       return
     }
 
     if (!Form.state.password) {
-      handleError({
-        key: 'password',
-        value: 'Password is required',
+      showToast('Password is required', {
+        status: 'error',
       })
       return
     }
@@ -97,7 +84,6 @@ const LoginPage = () => {
               }
               required
             />
-            <span>{errors.username && errors.username}</span>
           </div>
           <div className={styles.inputGroup}>
             <label>Password</label>

@@ -9,26 +9,18 @@ import _ from 'lodash'
 import { useFormState } from '@/hooks/useForm'
 import { useApiMutation } from '@/hooks/useApi'
 import { useHandleAuth } from '@/hooks/useAuth'
-import { useHandleFormErrors } from '@/hooks/useError'
 
 // types
-import { AuthSuccess, FormErrors } from '@/types'
+import { AuthSuccess } from '@/types'
 import { ENDPOINTS } from '@/config/endpoints'
 import { Loading } from '@/components/common/Loading'
 import { AuthLink } from '@/components/auth/AuthLink/AuthLink'
+import { useToast } from '@/components/common/Toast/ToastContext'
 
 const RegisterPage = () => {
   // auth helper
   const { handleAuth } = useHandleAuth()
-
-  // TODO: remove this and replace with
-  const { handleError, errors } = useHandleFormErrors<FormErrors>({
-    initialValues: {
-      username: '',
-      password: '',
-      server: '',
-    },
-  })
+  const { showToast } = useToast()
 
   const FormState = useFormState<{
     username: string
@@ -47,36 +39,30 @@ const RegisterPage = () => {
         token: data.accessToken,
         action: 'REGISTER',
       })
+
+      showToast('Welcome to Igaming...', {
+        status: 'success',
+      })
     },
     onError: (error) => {
-      // TODO: improve error handling by using a toast or a modal
-      handleError({
-        key: 'server',
-        value: _.get(error, 'response.data.message') || 'An error occured',
+      showToast(_.get(error, 'response.data.message', 'An error occured.'), {
+        status: 'error',
       })
     },
   })
 
   const handleSubmit = useCallback(async () => {
-    // reset existing erros
-    handleError({
-      key: 'server',
-      value: '',
-      reset: true,
-    })
     // TODO: Improve this by adding a validation package like zod or yup
     if (!FormState.state.username) {
-      handleError({
-        key: 'username',
-        value: 'Username is required',
+      showToast('Username is required', {
+        status: 'error',
       })
       return
     }
 
     if (!FormState.state.password) {
-      handleError({
-        key: 'password',
-        value: 'Password is required',
+      showToast('Password is required', {
+        status: 'error',
       })
       return
     }
@@ -105,7 +91,6 @@ const RegisterPage = () => {
               }
               required
             />
-            <span>{errors.username && errors.username}</span>
           </div>
           <div className={styles.inputGroup}>
             <label>Password</label>
@@ -120,7 +105,6 @@ const RegisterPage = () => {
               }
               required
             />
-            <span>{errors.password && errors.password}</span>
           </div>
           <button
             onClick={(e) => {
@@ -133,8 +117,6 @@ const RegisterPage = () => {
             Get Started
           </button>
           <AuthLink type="register" />
-
-          <span className={styles.apiErrors}>{RegisterMutation.error && errors.server}</span>
         </form>
       </Loading>
     </div>

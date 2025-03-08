@@ -2,7 +2,7 @@
  * Lobby Management Hooks
  */
 
-import { useCallback, useState } from 'react'
+import { useCallback } from 'react'
 import { useQueryClient } from '@tanstack/react-query'
 
 // API Hooks
@@ -70,24 +70,6 @@ export const useGetLobby = () => {
   return {
     data: GetLobbyQuery.data,
     isLoading: GetLobbyQuery.isLoading,
-  }
-}
-
-// subscribe to events in the lobby
-export const useLobbyEvents = () => {
-  // handle lobby events
-  const [lobby, setLobby] = useState({
-    timer: 0,
-    currentPlayers: 0,
-  })
-
-  const handleLobbyEvents = useCallback((event: MessageEvent) => {
-    console.log('this is sthe event', event)
-  }, [])
-
-  return {
-    lobby,
-    handleLobbyEvents,
   }
 }
 
