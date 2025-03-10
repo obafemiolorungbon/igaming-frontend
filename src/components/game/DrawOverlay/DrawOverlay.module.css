@@ -30,6 +30,8 @@
   position: relative;
   width: 200px;
   height: 200px;
+  display: flex;
+  flex-direction: column;
   border-radius: 24px;
   background: rgba(var(--foreground-rgb), 0.05);
   display: flex;
@@ -41,7 +43,7 @@
 
 .numberDisplay.complete {
   transform: scale(1.1);
-  background: rgba(59, 130, 246, 0.1);
+  background: rgba(9, 29, 63, 0.1);
   border: 2px solid #3b82f6;
 }
 
@@ -54,8 +56,32 @@
   z-index: 2;
 }
 
+.lucky_number {
+  font-size: 6rem;
+  font-weight: 700;
+  font-family: var(--font-geist-mono);
+  position: relative;
+  z-index: 2;
+  color: #3b82f6;
+}
+
+.correct_selectedNumber {
+  color: #42e0a6;
+}
+
+.incorrect_selectedNumber {
+  color: #f87171;
+}
+
+.lucky_final {
+  color: #d6e1f3 !important;
+}
+
 .complete .number {
   color: #3b82f6;
+  animation: pulseNumber 2s ease-in-out infinite;
+}
+.complete .lucky_number {
   animation: pulseNumber 2s ease-in-out infinite;
 }
 
@@ -111,6 +137,12 @@
   opacity: 0.6;
   animation: fall 3s linear infinite;
   animation-delay: var(--delay);
+}
+
+.selections__container {
+  display: flex;
+  gap: 2rem;
+  margin-top: 1rem;
 }
 
 @keyframes shuffle {
@@ -176,6 +208,10 @@
   }
 
   .number {
+    font-size: 4rem;
+  }
+
+  .lucky_number {
     font-size: 4rem;
   }
 

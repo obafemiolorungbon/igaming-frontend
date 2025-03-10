@@ -19,7 +19,6 @@ export class SSEManager {
 
   public initialize(setup: SSEConfig): void {
     if (this.eventSource) {
-      console.warn('EventSource is already initialized. Close it before reinitializing.')
       return
     }
 
@@ -42,6 +41,11 @@ export class SSEManager {
     this.eventSource.onerror = (error) => {
       console.error('SSE error:', error)
       this.closeConnection()
+
+      // schedule a reconnect
+      setTimeout(() => {
+        this.initialize(setup)
+      }, 1000)
     }
   }
 
@@ -51,7 +55,6 @@ export class SSEManager {
   public closeConnection(): void {
     if (this.eventSource) {
       this.eventSource.close()
-      console.log('SSE connection closed.')
       this.eventSource = null
     } else {
       console.warn('No EventSource connection to close.')

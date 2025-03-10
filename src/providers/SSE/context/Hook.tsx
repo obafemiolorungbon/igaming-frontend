@@ -1,9 +1,20 @@
 'use client'
 
-import { useEffect, useMemo } from 'react'
+import { useCallback, useEffect, useMemo } from 'react'
+
+import _ from 'lodash'
 
 // SSE Manager
 import { SSEManager } from './Manager'
+import { COOKIE_KEYS } from '@/utils/cookie'
+import { useCookies } from 'react-cookie'
+
+// types
+import { SSEConfig } from '../types'
+
+// config
+import { CONFIG } from '@/config/index.config'
+import { ENDPOINTS } from '@/config/endpoints'
 
 export interface UseServerSideEventsProps<T> {
   event: {
@@ -43,4 +54,40 @@ export const useSSEHook = <T extends Record<string, unknown> | string>(
       }
     }
   }, [SSEEnabled, props.event, SSEAppManager])
+}
+
+export const useReconnectSSE = () => {
+  const SSEAppManager = SSEManager.getInstance()
+
+  const reconnect = useCallback(
+    (state: SSEConfig) => {
+      SSEAppManager.initialize(state)
+    },
+    [SSEAppManager]
+  )
+
+  return reconnect
+}
+
+export const useGetSSEConfig = () => {
+  const SessionCookies = useCookies([COOKIE_KEYS.ACCESS_COOKIE])
+
+  const state = useMemo(() => {
+    const state: SSEConfig = {
+      url: `${CONFIG.API_BASE_URL}${ENDPOINTS.LOBBY.EVENTS}`,
+      params: undefined,
+    }
+
+    if (!SessionCookies) {
+      return state
+    }
+
+    if (!_.isEmpty(SessionCookies)) {
+      _.set(state, 'params.token', _.get(SessionCookies, COOKIE_KEYS.ACCESS_COOKIE))
+    }
+
+    return state
+  }, [SessionCookies])
+
+  return state
 }

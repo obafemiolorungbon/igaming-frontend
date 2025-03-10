@@ -70,6 +70,11 @@ const DrawOverlayComponent = ({
     return 'Better luck next time!'
   }, [selectedNumber, luckyNumber])
 
+  const isCorrectSelection = useMemo(
+    () => selectedNumber === luckyNumber,
+    [selectedNumber, luckyNumber]
+  )
+
   /**
    * If the status is not active, then you need to render the overlay and with the message that the next round starts soon.
    */
@@ -88,10 +93,30 @@ const DrawOverlayComponent = ({
       <div className={styles.content}>
         <h2 className={styles.title}>{phase === 'final' ? message : 'Drawing number...'}</h2>
 
-        <div className={`${styles.numberDisplay} ${drawComplete ? styles.complete : ''}`}>
-          <span className={styles.number}>{currentNumber}</span>
-          <div className={styles.glow} />
-          {phase !== 'final' && <div className={styles.shuffleEffect} />}
+        <div className={styles.selections__container}>
+          <div className={`${styles.numberDisplay} ${drawComplete ? styles.complete : ''}`}>
+            {!!selectedNumber && <span>Lucky Number</span>}
+            <span className={styles.number}>{currentNumber}</span>
+            <div className={styles.glow} />
+            {phase !== 'final' && <div className={styles.shuffleEffect} />}
+          </div>
+          {!!selectedNumber && (
+            <div className={`${styles.numberDisplay} ${drawComplete ? styles.complete : ''}`}>
+              <span>You Selected</span>
+              <span
+                className={`${styles.lucky_number}
+                ${phase !== 'final' ? styles.lucky_final : ''}
+                ${
+                  isCorrectSelection
+                    ? styles.correct_selectedNumber
+                    : styles.incorrect_selectedNumber
+                }`}
+              >
+                {selectedNumber}
+              </span>
+              <div className={styles.glow} />
+            </div>
+          )}
         </div>
 
         {phase === 'final' && <p className={styles.message}>Next Round is Starting Soon...</p>}
