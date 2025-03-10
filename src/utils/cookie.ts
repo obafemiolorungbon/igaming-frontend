@@ -17,7 +17,7 @@ export const getCookie = (key: string) => {
 }
 
 export const removeCookie = (key: string) => {
-  JsCookie.remove(key)
+  JsCookie.remove(key, COOKIE_OPTIONS)
 }
 export const COOKIE_KEYS = {
   ACCESS_COOKIE: 'IGAME_ACCESS_TOKEN',

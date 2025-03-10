@@ -34,11 +34,7 @@ export const useSSEHook = <T extends Record<string, unknown> | string>(
   )
 
   useEffect(() => {
-    if (
-      !SSEEnabled ||
-      !SSEAppManager?.eventSource ||
-      SSEAppManager.eventSource.readyState !== EventSource.OPEN
-    ) {
+    if (!SSEEnabled || !SSEAppManager?.eventSource) {
       return
     }
 

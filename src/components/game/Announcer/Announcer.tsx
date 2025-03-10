@@ -1,10 +1,9 @@
 'use client'
 
-import { memo } from 'react'
 import { SSE_EVENTS, useSSEHook } from '@/providers/SSE'
 import { useToast } from '@/components/common/Toast/ToastContext'
 
-const AnnouncerComponent = () => {
+export const Announcer = () => {
   // handle announcements
   const { showToast } = useToast()
 
@@ -16,7 +15,6 @@ const AnnouncerComponent = () => {
         const newAnnouncement = {
           message: `${username} has joined the game!`,
         }
-
         showToast(newAnnouncement.message, {
           status: 'info',
         })
@@ -26,5 +24,3 @@ const AnnouncerComponent = () => {
 
   return null
 }
-
-export const Announcer = memo(AnnouncerComponent)

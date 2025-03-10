@@ -10,7 +10,7 @@ interface NumberSelectorProps {
   disabled?: boolean
   actions: {
     onSelect: (selectedNumber: number) => void
-    onError: (error: any) => void
+    onError: (error: unknown) => void
   }
 }
 

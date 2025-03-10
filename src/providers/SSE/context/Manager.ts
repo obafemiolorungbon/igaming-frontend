@@ -44,7 +44,9 @@ export class SSEManager {
 
       // schedule a reconnect
       setTimeout(() => {
-        this.initialize(setup)
+        if (setup.params.token) {
+          this.initialize(setup)
+        }
       }, 1000)
     }
   }

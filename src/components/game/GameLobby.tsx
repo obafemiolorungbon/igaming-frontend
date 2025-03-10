@@ -17,7 +17,7 @@ import { ExitButton } from '@/components/game/ExitButton/ExitButton'
 import { SSE_EVENTS, useSSEHook } from '@/providers/SSE'
 import { useGetLobby, useJoinLobby, useInvalidateLobbyQueries } from '@/hooks/useLobby'
 import { useToast } from '@/components/common/Toast/ToastContext'
-import { useCallback, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 
 export const GameLobby = () => {
   const { showToast } = useToast()
@@ -33,12 +33,6 @@ export const GameLobby = () => {
   const ActiveLobby = useGetLobby()
   const invalidateQueries = useInvalidateLobbyQueries()
 
-  const handleDrawComplete = useCallback(() => {
-    setTimeout(() => {
-      invalidateQueries()
-    }, 3000)
-  }, [showToast, invalidateQueries])
-
   useSSEHook<string>({
     event: {
       name: SSE_EVENTS.EXPIRED,
@@ -50,6 +44,15 @@ export const GameLobby = () => {
           isDrawing: true,
           isOpened: true,
         }))
+      },
+    },
+  })
+
+  useSSEHook<string>({
+    event: {
+      name: SSE_EVENTS.PLAYER_JOINED,
+      handler: () => {
+        invalidateQueries()
       },
     },
   })
@@ -102,7 +105,7 @@ export const GameLobby = () => {
       </div>
 
       <div className={styles.content}>
-        <CountdownTimer activeLobby={ActiveLobby.data?.lobby?.status === 'ACTIVE'} />
+        <CountdownTimer />
 
         {canShowSelector && (
           <div className={styles.gameControls}>
@@ -148,7 +151,12 @@ export const GameLobby = () => {
         <DrawOverlay
           luckyNumber={draw.luckyNumber}
           selectedNumber={draw.selectedNumber}
-          onDrawComplete={handleDrawComplete}
+          onDrawComplete={() => {
+            // show winning number for about 3 seconds
+            setTimeout(() => {
+              invalidateQueries()
+            }, 4000)
+          }}
           status={ActiveLobby.data?.lobby?.status}
         />
       )}
