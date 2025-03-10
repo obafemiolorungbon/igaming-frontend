@@ -102,7 +102,7 @@ export const GameLobby = () => {
       </div>
 
       <div className={styles.content}>
-        <CountdownTimer />
+        <CountdownTimer activeLobby={ActiveLobby.data?.lobby?.status === 'ACTIVE'} />
 
         {canShowSelector && (
           <div className={styles.gameControls}>

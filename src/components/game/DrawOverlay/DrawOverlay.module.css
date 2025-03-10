@@ -55,6 +55,7 @@
   position: relative;
   z-index: 2;
 }
+
 .lucky_number {
   font-size: 6rem;
   font-weight: 700;
@@ -207,6 +208,10 @@
   }
 
   .number {
+    font-size: 4rem;
+  }
+
+  .lucky_number {
     font-size: 4rem;
   }
 
